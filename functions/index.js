@@ -14,27 +14,13 @@ app.use(bodyParser.json());
 
 app.use('/calculate', (req, res, next) => {
     const body = req.body;
-    const num1 = body.num1;
-    const num2 = body.num2;
-    const op = body.op;
-    let result;
-    if (op === "+") {
-        result = num1 + num2;
-    } else if (op === "-") {
-        result = num1 - num2;
-    } else if (op === "*") {
-        result = num1 * num2;
-    } else if (op === "/") {
-        result = num1 / num2;
-    }
+    const equation = body.equation;
+    let result = eval(equation);
     let response = {
-        num1: num1,
-        num2: num2,
-        op: op,
+        equation: equation,
         result: result
     };
     try {
-        var timestamp = new Date();
         database.ref('history').push(
             response
         );
