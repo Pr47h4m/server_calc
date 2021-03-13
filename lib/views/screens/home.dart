@@ -1,9 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import '../widgets/roundedButton.dart';
 
 // ignore: must_be_immutable
 class Home extends StatelessWidget {
-  void calculate() {}
+  void calculate() async {
+    String url =
+        "http://192.168.43.249:5001/sever-calc/us-central1/webApi/calculate";
+    try {
+      var res =
+          await http.post(url, body: json.encode({"equation": _input.text}));
+      _input.text = json.decode(res.body).result.toString();
+    } catch (err) {
+      print(err);
+    }
+  }
 
   final TextEditingController _input = TextEditingController();
   @override
