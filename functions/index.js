@@ -27,7 +27,7 @@ app.use('/calculate', (req, res, next) => {
     } catch (err) {
         console.log(error);
     }
-    return res.send(response);
+    return res.send(JSON.stringify(response));
 });
 
 exports.webApi = functions.https.onRequest(app);
